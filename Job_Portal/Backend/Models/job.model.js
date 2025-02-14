@@ -1,51 +1,106 @@
-// import { application } from "express";
+// import mongoose from "mongoose";
+
+// const jobSchema = new mongoose.Schema({
+//     title: {
+//         type: String,
+//         required: true
+//     },
+//     description: {  // Fixed typo from 'discription' to 'description'
+//         type: String,
+//         required: true
+//     },
+//     requirement: {  // Added type
+//         type: String,
+//         required: true
+//     },
+//     salary: {
+//         type: Number,
+//         required: true
+//     },
+//     experienceLevel: {
+//         type: Number,
+//         required: true
+//     },
+//     location: {
+//         type: String,
+//         required: true
+//     },
+//     jobType: {
+//         type: String,
+//         required: true
+//     },
+//     position: {
+//         type: Number,
+//         required: true
+//     },
+//     company: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "Company", // Ensure it matches the actual model name
+//         required: true
+//     },
+//     created_by: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "User", // Ensure it matches the actual model name
+//         required: true
+//     },
+//     application: [{
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "Application"
+//     }]
+// }, { timestamps: true });
+
+// export const Job = mongoose.model("Job", jobSchema);
+
+
 import mongoose from "mongoose";
 
-const jobSchema=new mongoose.Schema({
-    title:{
-        type:String,
-        require:true
+const jobSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
     },
-    discription:{
-        type:String,
-        require:true
+    description: {
+        type: String,
+        required: true
     },
-    requirement:{
-        require:true
+    requirement: {  
+        type: [String], // Fixed type to an array
+        required: true
     },
-    salary:{
-        type:Number,
-        require:true
+    salary: {
+        type: Number,
+        required: true
     },
-    experienceLevel:{
-        type:Number,
-        require:true
+    experienceLevel: {
+        type: Number,
+        required: true
     },
-    location:{
-        type:String,
-        require:true
+    location: {
+        type: String,
+        required: true
     },
-    jobType:{
-        type:String,
-        require:true
+    jobType: {
+        type: String,
+        required: true
     },
-    position:{
-        type:Number,
-        require:true
+    position: { 
+        type: String, // Fixed from Number to String
+        required: true
     },
-    company:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"company",
-        require:true
+    company: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Company",
+        required: true
     },
-    created_by:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"user",
-        require:true
+    created_by: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     },
-    application:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Application"
+    application: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Application"
     }]
-},{timestamps:true})
-export const Job=mongoose.model("Job",jobSchema)
+}, { timestamps: true });
+
+export const Job = mongoose.model("Job", jobSchema);

@@ -1,33 +1,76 @@
-import { Job, Job } from "../Models/job.model.js";
+import { Job } from "../Models/job.model.js";
 
 
 // for admin
-export const postJob=async (req,res)=>{
+// export const postJob=async (req,res)=>{
+//     try {
+//         const {title,description,requirement,salary,location,jobType,experience,position,companyId}=req.body;
+//         const userId=req.id;
+//         if(!title || !description || !requirement || !salary || !location || !jobType || !experience || !position || !companyId){
+//             return res.status(400).json({
+//                 massage:"Somthing is missing ",
+//                 success:false
+//             })
+//         }
+//         const job=await Job.create({
+//             title,
+//             description,
+//             requirement:requirement.split(","),
+//             salary:Number(salary),
+//             location,
+//             jobType,
+//             experienceLevel:experience,
+//             position,
+//             company:companyId,
+//             created_by:userId
+//         })
+//         return res.status(201).json({
+//             massage:"new jobs created successfully",
+//             job,
+//             success:true
+//         })
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).json({
+//             message: "Internal Server Error",
+//             success: false
+//         });
+//     }
+// }
+
+
+
+export const postJob = async (req, res) => {
     try {
-        const {title,description,requirement,salary,location,jobType,experience,position,companyId}=req.body;
-        const userId=req.id;
-        if(!title || !description || requirement ||salary || location ||jobType ||experience ||position ||companyId){
+        const { title, description, requirement, salary, location, jobType, experience, position, companyId } = req.body;
+        const userId = req.id;
+
+        if (!title || !description || !requirement || !salary || !location || !jobType || !experience || !position || !companyId) {
             return res.status(400).json({
-                massage:"Somthing is missing ",
-                success:false
-            })
+                message: "Something is missing",
+                success: false
+            });
         }
-        const job=await Job.create({
+
+        const job = await Job.create({
             title,
             description,
-            requirement:requirement.split(","),
-            salary:Number(salary),
+            requirement: requirement.split(","), // Ensures array format
+            salary: Number(salary),
             location,
             jobType,
-            experienceLevel:experience,
-            position,
-            companyId:userId
-        })
+            experienceLevel: Number(experience), // Ensuring it's a number
+            position, // Keeping as String
+            company: companyId,
+            created_by: userId
+        });
+
         return res.status(201).json({
-            massage:"new jobs created successfully",
+            message: "New job created successfully",
             job,
-            success:true
-        })
+            success: true
+        });
+
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -35,7 +78,8 @@ export const postJob=async (req,res)=>{
             success: false
         });
     }
-}
+};
+
 
 // for student
 export const getAllJob=async (req,res)=>{
