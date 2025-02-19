@@ -21,10 +21,10 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
 const coreOptions={
-    origin:'https//localhost:5173',
+    origin:'http://localhost:5173',
     Credentials:true
 }
-
+// http://localhost:8000/api/v1/user
 app.use(cors(coreOptions));
 const PORT=process.env.PORT || 3000;
 

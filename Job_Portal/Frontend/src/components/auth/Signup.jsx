@@ -4,31 +4,64 @@ import { Label } from '@/components/ui/label';
 import { Input } from '../ui/input';
 import { RadioGroup } from '@/components/ui/radio-group';
 import { Button } from '../ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import axios from 'axios';
+import { USER_API__END_POINT } from '@/utils/constant';
+
 
 const Signup = () => {
-      const [input ,setInput]=useState({
-          fullname:"",
-          email:"",
-          phoneNumber:"",
-          password:"",
-          role:"",
-          file:"",
-      })
-  
-      const changeEventHandeler=(e)=>{
-          setInput({...input,[e.target.name]:e.target.value});
-      }
-  
-      const changeFilehandler=(e)=>{
-          setInput({...input,file:e.target.files?.[0]});
-      }
+  const [input, setInput] = useState({
+    fullname: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    role: "",
+    file: "",
+  })
 
-      const submitHandler = async (e) => {
-        e.preventDefault();
-        console.log(input);
-    };
-    
+  const navigate = useNavigate();
+
+
+  const changeEventHandeler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  }
+
+  const changeFilehandler = (e) => {
+    setInput({ ...input, file: e.target.files?.[0] });
+  }
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log(input);
+    const formData = new FormData();
+    formData.append("fullname", input.fullname);
+    formData.append("email", input.email);
+    formData.append("phoneNumber", input.phoneNumber);
+    formData.append("password", input.password);
+    formData.append("role", input.role);
+    if (input.file)
+      formData.append("file", input.file)
+    // USER_API__END_POINT
+    try {
+      const res = await axios.post(`${USER_API__END_POINT}/register`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+        withCredentials: true,
+      })
+      if (res.data.success) {
+        navigate("/login");
+        toast.success(res.data.message);
+        
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.message)
+
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -39,46 +72,46 @@ const Signup = () => {
           <div>
             <Label>Full Name</Label>
             <Input
-             type="text"
+              type="text"
               placeholder="Enter your name"
               value={input.fullname}
               name="fullname"
               onChange={changeEventHandeler}
               required
-              />
+            />
           </div>
 
           <div>
             <Label>Email</Label>
-            <Input 
-            type="email" 
-            placeholder="Enter your Email"
-            value={input.email}
+            <Input
+              type="email"
+              placeholder="Enter your Email"
+              value={input.email}
               name="email"
               onChange={changeEventHandeler}
-             required />
+              required />
           </div>
 
           <div>
             <Label>Phone Number</Label>
             <Input
-             type="tel"
+              type="tel"
               placeholder="Enter your Phone Number"
               value={input.phoneNumber}
               name="phoneNumber"
               onChange={changeEventHandeler}
-             required />
+              required />
           </div>
 
           <div>
             <Label>Password</Label>
             <Input
-             type="password" 
-             placeholder="Enter Password" 
-             value={input.password}
+              type="password"
+              placeholder="Enter Password"
+              value={input.password}
               name="password"
               onChange={changeEventHandeler}
-             required />
+              required />
           </div>
 
           <div className="flex items-center justify-center">
@@ -88,7 +121,7 @@ const Signup = () => {
                 <Input type="radio"
                   name="role"
                   value="student"
-                  checked={input.role==="student"}
+                  checked={input.role === "student"}
                   onChange={changeEventHandeler}
                   className="cursor-pointer"
                 />
@@ -99,7 +132,7 @@ const Signup = () => {
                 <Input type="radio"
                   name="role"
                   value="recruiter"
-                  checked={input.role==="recruiter"}
+                  checked={input.role === "recruiter"}
                   onChange={changeEventHandeler}
                   className="cursor-pointer"
                 />
