@@ -22,7 +22,7 @@ app.use(cookieParser());
 
 const coreOptions={
     origin:'http://localhost:5173',
-    Credentials:true
+    credentials:true
 }
 // http://localhost:8000/api/v1/user
 app.use(cors(coreOptions));

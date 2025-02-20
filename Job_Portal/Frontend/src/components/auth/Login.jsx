@@ -8,6 +8,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { USER_API__END_POINT } from '@/utils/constant';
 import { toast } from 'sonner';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading } from '@/redux/authSlice';
+import store from '@/redux/store';
+import { Loader2 } from 'lucide-react';
 
 
 const Login = () => {
@@ -15,17 +19,21 @@ const Login = () => {
     email: "",
     password: "",
     role: "",
-  })
+  });
+  const { loading } = useSelector(store => store.auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const changeEventHandeler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
+
   }
 
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
+      dispatch(setLoading(true))
       const res = await axios.post(`${USER_API__END_POINT}/login`, input, {
         headers: {
           "Content-Type": "application/json",
@@ -36,10 +44,13 @@ const Login = () => {
       if (res.data.success) {
         navigate("/");
         toast.success(res.data.message);
+
       }
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Login failed");
+    } finally {
+      dispatch(setLoading(false));
     }
 
   };
@@ -98,10 +109,11 @@ const Login = () => {
               </div>
             </RadioGroup>
           </div>
-
-          <div className="flex justify-center mt-4">
-            <Button type="submit" className="w-full bg-[#8e5ee1] hover:bg-[#6b41b3]">Login</Button>
-          </div>
+          {
+            loading ? <Button className="w-full my-4"><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please wait</Button> : <div className="flex justify-center mt-4">
+              <Button type="submit" className="w-full bg-[#8e5ee1] hover:bg-[#6b41b3]">Login</Button>
+            </div>
+          }
           <span className='text-sm'>
             Don't have an account? <Link to="/signup" className='text-blue-600 cursor-pointer'>Sign up</Link>
           </span>
