@@ -4,7 +4,7 @@ import { RadioGroup, RadioGroupItem } from './ui/radio-group'
 const filterData = [
     {
         filterType: "Location",
-        array: ["delhi", "mumbai", "banglore", "pune", "hyderabad"]
+        array: ["Delhi", "Mumbai", "Banglore", "Pune", "Hyderabad"]
     },
     {
         filterType: "Industry",
@@ -17,18 +17,18 @@ const filterData = [
 ]
 const FilterCard = () => {
     return (
-        <div>
-            <h1>Filter Jobs</h1>
+        <div className='w-full bg-white p-3 rounded-md'>
+            <h1 className='font-bold text-lg'>Filter Jobs</h1>
             <hr className='mt-3' />
             <RadioGroup>
                 {
                     filterData.map((data, index) => (
                         <div>
-                            <h1>{data.filterType}</h1>
+                            <h1 className='font-bold text-lg'>{data.filterType}</h1>
                             {
                                 data.array.map((item,index)=>{
                                     return(
-                                        <div>
+                                        <div className='flexx items-center space-x-2 my-2'>
                                             <RadioGroupItem value={item} />
                                             <label>{item}</label>
                                         </div>
