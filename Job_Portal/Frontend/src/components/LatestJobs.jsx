@@ -1,4 +1,5 @@
 import React from 'react'
+<<<<<<< HEAD
 import LatestJobCard from './LatestJobCard';
 
 const randomeJobs = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -13,6 +14,15 @@ const LatestJobs = () => {
             </div>
         </div>
     )
+=======
+
+const LatestJobs = () => {
+  return (
+    <div>
+      
+    </div>
+  )
+>>>>>>> d98b2bdb78e96ae6e6b0af73975ce6f5ab3993c1
 }
 
 export default LatestJobs
