@@ -4,10 +4,13 @@ import React from "react";
 import { Button } from "../ui/button";
 import { LogOut, User2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import store from "@/redux/store";
 
 const Navbar = () => {
-    const user = false; // Change to true for testing logged-in state
-
+    // const user = true; // Change to true for testing logged-in state
+    const {User}=useSelector(store=>store.auth);
+    // console.log(user)
     return (
         <div className="bg-white">
             <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
@@ -22,7 +25,7 @@ const Navbar = () => {
                     </ul>
 
                     {
-                        !user ? (
+                        !User ? (
                             <div className="flex items-center gap-2">
                                 <Link to="/login">
                                     <Button variant="outline">Login</Button>
@@ -51,7 +54,7 @@ const Navbar = () => {
                                     <div className="mt-3 border-t pt-2 space-y-1">
                                         <div className="flex items-center gap-2">
                                             <User2 className="w-4 h-4 text-gray-600" />
-                                            <Button variant="link" className="w-full text-sm text-gray-700">View Profile</Button>
+                                            <Button variant="link" className="w-full text-sm text-gray-700"><Link to="/profile">View Profile</Link></Button>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <LogOut className="w-4 h-4 text-gray-600" />
