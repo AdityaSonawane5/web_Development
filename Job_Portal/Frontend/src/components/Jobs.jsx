@@ -27,7 +27,7 @@ const Jobs = () => {
                                 </div>
                             </div>
                         )
-                        // jobsArray.map((item, index) => <Job />)
+                        
                     }
                 </div>
             </div>
