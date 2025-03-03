@@ -9,7 +9,7 @@ import store from "@/redux/store";
 
 const Navbar = () => {
     // const user = true; // Change to true for testing logged-in state
-    const {User}=useSelector(store=>store.auth);
+    const { User } = useSelector(store => store.auth);
     // console.log(user)
     return (
         <div className="bg-white">

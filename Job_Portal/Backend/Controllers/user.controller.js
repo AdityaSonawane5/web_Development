@@ -1,7 +1,7 @@
 import { User } from "../Models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import getUriData from "../utils/datauri.js";
+import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 
 export const register = async (req, res) => {
@@ -118,22 +118,15 @@ export const logOut = async (req,res) => {
 export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
-        const file=req.file
-        const fileUri=getUriData(file);
+        const file=req.file;
+        const fileUri=getDataUri(file);
         const cloudResponces=await cloudinary.uploader.upload(fileUri.content);
-        cons
-        // if (!fullname || !email || !phoneNumber || !bio || !skills) {
-        //     return res.status(400).json({
-        //         message: "Something is missing",
-        //         success: false
-        //     });
-        // }
 
         let skillsArray;
         if(skills){
             skillsArray = skills.split(",");
         }
-        const userId = req.id;
+        const userId = req.id; 
         let user = await User.findById(userId);
 
         if (!user) {
@@ -152,12 +145,12 @@ export const updateProfile = async (req, res) => {
 
         if(cloudResponces){
             user.profile.resume=cloudResponces.secure_url;//save thr url of the image
-            user.profile.resumeOriginalName = file.originalname //save the original name of the image
+            console.log(user.profile.resumeOriginalName = file.originalname); //save the original name of the image
         }
         await user.save();
 
-        user  = {
-            _id: user._id,
+        user = {
+            _id: user._id, 
             fullname: user.fullname,
             email: user.email,
             phoneNumber: user.phoneNumber,
@@ -176,5 +169,6 @@ export const updateProfile = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error", success: false });
     }
 };
+
 
 
