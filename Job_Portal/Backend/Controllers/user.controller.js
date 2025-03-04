@@ -145,7 +145,7 @@ export const updateProfile = async (req, res) => {
 
         if(cloudResponces){
             user.profile.resume=cloudResponces.secure_url;//save thr url of the image
-            console.log(user.profile.resumeOriginalName = file.originalname); //save the original name of the image
+            user.profile.resumeOriginalName = file.originalname; //save the original name of the image
         }
         await user.save();
 
