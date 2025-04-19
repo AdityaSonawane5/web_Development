@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner';
+import ProductGrid from './ProductGrid';
 
 const selectedProduct = {
     name: "Stylish Jacket",
@@ -21,6 +22,34 @@ const selectedProduct = {
         },
     ]
 }
+
+const similarProduct=[
+    {
+        _id:1,
+        name:"Product 1",
+        price:100,
+        images:[{url:"https://picsum.photos/500/500?random=3"}]
+    },
+    {
+        _id:2,
+        name:"Product 2",
+        price:100,
+        images:[{url:"https://picsum.photos/500/500?random=4"}]
+    },
+    {
+        _id:3,
+        name:"Product 3",
+        price:100,
+        images:[{url:"https://picsum.photos/500/500?random=5"}]
+    },
+    {
+        _id:4,
+        name:"Product 4",
+        price:100,
+        images:[{url:"https://picsum.photos/500/500?random=6"}]
+    }
+]
+
 const ProductDetails = () => {
     const [mainImage,setMainImage]=useState("");
     const [selectedSize,setSelectedSize]=useState("");
@@ -122,8 +151,8 @@ const ProductDetails = () => {
                             </div>
                         </div>
 
-                        <button onClick={handleAddToCart} className='bg-black text-white py-2 px-6 rounded w-full mb-4'>
-                            ADD TO CART
+                    <button onClick={handleAddToCart} disabled={isButtonDisabled} className={`bg-black text-white py-2 px-6 rounded w-full mb-4 ${isButtonDisabled ? "cursor-not-allowed opacity-50" : "hover:bg-gray-900"}`}>
+                            {isButtonDisabled ? "Adding..." : "ADD TO CART"}
                         </button>
 
                         <div className='mt-10 text-gray-700'>
@@ -143,10 +172,15 @@ const ProductDetails = () => {
                         </div>
                     </div>
                 </div>
+                <div className='mt-20'>
+                    <h2 className='text-2xl text-center font-medium mb-4'>
+                        You May Also Like 
+                    </h2>
+                    <ProductGrid products={similarProduct}/>
+                </div>
             </div>
         </div>
     )
 }
 
 export default ProductDetails
-// 2:48:26 timestamp 
