@@ -1,4 +1,5 @@
 import  { useState } from 'react'
+import {Link} from "react-router-dom";
 
 const Login = () => {
     const [email,setemail]=useState("");
@@ -23,6 +24,12 @@ const Login = () => {
                 <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)} className='w-full p-2 border rounded' placeholder='Enter your password' />
             </div>
             <button type='submit' className='w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition'>Sign in</button>
+            <p className='mt-6 text-center text-sm'>
+              Don't have an account? 
+              <Link to="/register" className="text-blue-500">
+                Register
+              </Link>
+            </p>
         </form>
       </div>
     </div>
@@ -30,3 +37,4 @@ const Login = () => {
 }
 
 export default Login
+// 3:21:35
