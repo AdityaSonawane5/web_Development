@@ -1,14 +1,22 @@
 import  { useState } from 'react'
 import {Link} from "react-router-dom";
-import login from "../assets/login.webp";
+import register from "../assets/register.webp";
 
-const Login = () => {
+const Register = () => {
+    const [name,setName]=useState("");
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
+
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+        console.log("User registered:",{name,email,password})
+
+    }
+
   return (
     <div className='flex'>
       <div className='w-full flex md:w-1/2 flex-col justify-center items-center p-8 md:p-12'>
-        <form className='w-full max-w-md bg-white p-8 rounded-lg border shadow-sm'>
+        <form onSubmit={handleSubmit} className='w-full max-w-md bg-white p-8 rounded-lg border shadow-sm'>
             <div className='flex justify-center mb-6'>
                 <h2 className='text-xl font-medium'>Rabbit</h2>
             </div>
@@ -17,6 +25,10 @@ const Login = () => {
                 Enter your username and password to Login
             </p>
             <div className='md-4'>
+                <label className='block text-sm font-semibold mb-2'>Name</label>
+                <input type="text" value={name} onChange={(e)=>setName(e.target.value)} className='w-full p-2 border rounded' placeholder='Enter your Name ' />
+            </div>
+            <div className='md-4'>
                 <label className='block text-sm font-semibold mb-2'>Email</label>
                 <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} className='w-full p-2 border rounded' placeholder='Enter your email address' />
             </div>
@@ -24,11 +36,11 @@ const Login = () => {
                 <label className='block text-sm font-semibold mb-2'>password</label>
                 <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)} className='w-full p-2 border rounded' placeholder='Enter your password' />
             </div>
-            <button type='submit' className='w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition'>Sign in</button>
+            <button type='submit' className='w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition'>Sign up</button>
             <p className='mt-6 text-center text-sm'>
               Don't have an account? {""}
-              <Link to="/register" className="text-blue-500">
-                Register
+              <Link to="/login" className="text-blue-500">
+                Login
               </Link>
             </p>
         </form>
@@ -36,12 +48,12 @@ const Login = () => {
 
       <div className='hidden md:block w-1/2 bg-gray-800'>
         <div className='h-full felx flex-col justify-center items-center'>
-          <img src={login} alt='Login to Account' className='h-[750px] w-full object-cover'/>
+          <img src={register} alt='Login to Account' className='h-[750px] w-full object-cover'/>
         </div>
       </div>
     </div>
   )
 }
 
-export default Login
-// 3:21:35
+export default Register
+// 3:26:53 pn ek vela parat check karun ghe code chatgpt la takun nahi tr video pahun ok .
