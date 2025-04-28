@@ -24,11 +24,11 @@ const Register = () => {
             <p className='text-center md-6'>
                 Enter your username and password to Login
             </p>
-            <div className='md-4'>
+            <div className='mb-4'>
                 <label className='block text-sm font-semibold mb-2'>Name</label>
                 <input type="text" value={name} onChange={(e)=>setName(e.target.value)} className='w-full p-2 border rounded' placeholder='Enter your Name ' />
             </div>
-            <div className='md-4'>
+            <div className='mb-4'>
                 <label className='block text-sm font-semibold mb-2'>Email</label>
                 <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} className='w-full p-2 border rounded' placeholder='Enter your email address' />
             </div>
@@ -47,7 +47,7 @@ const Register = () => {
       </div>
 
       <div className='hidden md:block w-1/2 bg-gray-800'>
-        <div className='h-full felx flex-col justify-center items-center'>
+        <div className='h-full flex flex-col justify-center items-center'>
           <img src={register} alt='Login to Account' className='h-[750px] w-full object-cover'/>
         </div>
       </div>
@@ -56,4 +56,4 @@ const Register = () => {
 }
 
 export default Register
-// 3:26:53 pn ek vela parat check karun ghe code chatgpt la takun nahi tr video pahun ok .
+
