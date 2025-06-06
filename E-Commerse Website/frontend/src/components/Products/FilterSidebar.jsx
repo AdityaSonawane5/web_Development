@@ -109,6 +109,14 @@ const FilterSidebar = () => {
     setSerchParams(params);
     navigate(`?${params.toString()}`); 
   }
+
+  const handelPriceChange=(e)=>{
+    const newPrice=e.target.value;
+    setPriceRange([0,newPrice]);
+    const newFilters={...filters,minPrice:0 , maxPrice:newPrice};
+    setFilters(filters);
+    updateURLParams(newFilters);
+  }
   return (
     <div className='p-4 '>
       <h3 className='text-xl font-medium text-gray-800 mb-4 '>Filter</h3>
@@ -194,6 +202,7 @@ const FilterSidebar = () => {
               name='material'
               value={material}
               onChange={handelFilterChange}
+              checked={filters.material.includes(material)}
               className='mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300'
             />
             <span className='text-gray-700'>{material}</span>
@@ -211,6 +220,7 @@ const FilterSidebar = () => {
               name='brand'
               value={brand}
               onChange={handelFilterChange}
+              checked={filters.brand.includes(brand)}
               className='mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300'
             />
             <span className='text-gray-700'>{brand}</span>
@@ -221,7 +231,7 @@ const FilterSidebar = () => {
       {/* Price Range Filter */}
       <div className='mb-8'>
         <label className='block text-gray-600 font-medium mb-2 '>Price Range</label>
-        <input type="range" name='priceRange' min={0} max={100} className='w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer' />
+        <input type="range" name='priceRange' min={0} max={100} value={priceRange[1]} onChange={handelPriceChange} className='w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer' />
         <div className='flex justify-between text-gray-600 mt-2 '>
           <span>$0</span>
           <span>${priceRange[1]}</span>
