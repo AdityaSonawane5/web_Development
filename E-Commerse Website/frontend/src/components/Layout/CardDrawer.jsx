@@ -6,7 +6,7 @@ const CardDrawer = ({drawerOpen,toggleCardDrawer}) => {
     
   const navigate=useNavigate();
   const handelCheckout=()=>{
-
+    toggleCardDrawer()
     navigate('checkout')
   }
   return (

@@ -30,7 +30,9 @@ const Navbar = () => {
           <Link to="# " className='text-gray-700 hover:text-black text-sm font-medium uppercase'>Top wear</Link>
           <Link to="# " className='text-gray-700 hover:text-black text-sm font-medium uppercase'>Bottom weare</Link>
         </div>
+        {/* Right -Icons*/}
         <div className='flex items-center space-x-4'>
+          <Link to="/admin" className='block bg-black px-2 ruouded text-sm text-white '>Admit</Link>
           <Link to="/profile" className='hover:text-black'><HiOutlineUser className='h-6 w-6 text-gray-700' /></Link>
           <button onClick={toggleCardDrawer} className='relative hover:text-black'><HiOutlineShoppingBag className='h-6 w-6 text-gray-700' />
             <span className='absolute -top-1 bg-[#ea2e0e] text-white text-xs rounded-full px-2 py-0.5'>4</span>
