@@ -1,27 +1,37 @@
-const express =require("express");
+const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-
-const app=express();
+const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoutes");
+const CartRoutes = require("./routes/cartRoutes");
+const checkoutRoutes = require("./routes/checkoutRoutes")
+const orderRoutes = require("./routes/orderRoutes")
+const app = express();
 
 app.use(express.json());
 app.use(cors());
 
 dotenv.config();
 
-const PORT=process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 // Connected to MongoDB
 connectDB();
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.send("WELCOME TO REBBIT API!");
 });
 
-app.listen(PORT,()=>{
+//Api Routes
+app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/cart", CartRoutes);
+app.use("/api/checkout", checkoutRoutes);
+app.use("/api/orders", orderRoutes);
+
+app.listen(PORT, () => {
     console.log(`server running on http://localhost:${PORT}`);
 })
 
 
-// 7:27:05 timestamp
