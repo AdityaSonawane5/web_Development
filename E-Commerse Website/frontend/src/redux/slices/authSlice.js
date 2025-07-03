@@ -8,7 +8,9 @@ const userFromStorage = localStorage.getItem("userInfo")
 
 // check  for an existing guest ID is localstorege or generate a new One
 
-const initialGuestId = localStorage.getItem("guestId" || `guest_${new Date().getItem()}`);
+// const initialGuestId = localStorage.getItem("guestId" || `guest_${new Date().getItem()}`);
+// localStorage.setItem("guestId", initialGuestId);
+const initialGuestId = localStorage.getItem("guestId") || `guest_${new Date().getTime()}`;
 localStorage.setItem("guestId", initialGuestId);
 
 
@@ -23,23 +25,24 @@ const initialState = {
 
 
 // Async Thunk for user Login
-export const loginUser = createAsyncThunk("auth/loginUser", async (userData, { rejectwithVelue }) => {
+export const loginUser = createAsyncThunk("auth/loginUser", async (userData, { rejectWithValue }) => {
     try {
-        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/log`, userData);
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/login`, userData);
         localStorage.setItem("userInfo", JSON.stringify(response.data.token));
         localStorage.setItem("userToken", response.data.token);
-
+        console.log(import.meta.env.VITE_BACKEND_URL);
+        console.log(userData)
         return response.data.user; // Return the user object from the responce
 
     } catch (error) {
-        return rejectwithVelue(error.response.data);
+        return rejectWithValue(error.response.data);
     }
 });
 
 
 
 // Async Thunk for user Register
-export const registerUser = createAsyncThunk("auth/registerUser", async (userData, { rejectwithVelue }) => {
+export const registerUser = createAsyncThunk("auth/registerUser", async (userData, { rejectWithValue  }) => {
     try {
         const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, userData);
         localStorage.setItem("userInfo", JSON.stringify(response.data.token));
@@ -48,7 +51,7 @@ export const registerUser = createAsyncThunk("auth/registerUser", async (userDat
         return response.data.user; // Return the user object from the responce
 
     } catch (error) {
-        return rejectwithVelue(error.response.data);
+        return rejectWithValue (error.response.data);
     }
 });
 
@@ -73,33 +76,33 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(loginUser.pending, (state) => {
-            state.builder = true;
+            state.loading = true;
             state.error = null;
         })
-        .addCase(loginUser.fulfilled, (state, action) => {
-            state.builder = false;
-            state.error = action.payload;
-        })
-        .addCase(loginUser.rejected, (state, action) => {
-            state.builder = false;
-            state.error = action.payload.message;
-        })
-        .addCase(registerUser.pending, (state) => {
-            state.builder = true;
-            state.error = null;
-        })
-        .addCase(registerUser.fulfilled, (state, action) => {
-            state.builder = false;
-            state.error = action.payload;
-        })
-        .addCase(registerUser.rejected, (state, action) => {
-            state.builder = false;
-            state.error = action.payload.message;
-        });
+            .addCase(loginUser.fulfilled, (state, action) => {
+                state.builder = false;
+                state.error = action.payload.message;
+            })
+            .addCase(loginUser.rejected, (state, action) => {
+                state.builder = false;
+                state.error = action.payload.message;
+            })
+            .addCase(registerUser.pending, (state) => {
+                state.builder = true;
+                state.error = null;
+            })
+            .addCase(registerUser.fulfilled, (state, action) => {
+                state.builder = false;
+                state.error = action.payload.message;
+            })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.builder = false;
+                state.error = action.payload.message;
+            });
     }
 });
 
 
 
-export const {logout,generateNewGuessId}= authSlice.actions;
+export const { logout, generateNewGuessId } = authSlice.actions;
 export default authSlice.reducer;
