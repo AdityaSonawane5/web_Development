@@ -136,7 +136,7 @@ router.delete("/", async (req, res) => {
 
         const productIndex = cart.products.findIndex(
             (p) =>
-                p.productId.toString() === productId &&
+                p.productId.toString() === productId.toString() &&
                 p.sizes === sizes &&
                 p.colors === colors
         );

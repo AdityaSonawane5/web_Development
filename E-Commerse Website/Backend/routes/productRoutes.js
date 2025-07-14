@@ -163,7 +163,7 @@ router.get("/", async (req, res) => {
             sizes,
             colors,
             gender,
-            minPrice,
+            miniPrice,
             maxPrice,
             sortBy,
             search,
@@ -204,10 +204,10 @@ router.get("/", async (req, res) => {
             query.gender = gender;
         }
 
-        if (minPrice || maxPrice) {
+        if (miniPrice || maxPrice) {
             query.price = {};
 
-            if (minPrice) query.price.$gte = Number(minPrice);
+            if (miniPrice) query.price.$gte = Number(miniPrice);
             if (maxPrice) query.price.$lte = Number(maxPrice);
         }
 
