@@ -6,16 +6,16 @@ export const createCheckout = createAsyncThunk(
     "checkout/createCheckout",
     async (checkoutdata, { rejectWithValue }) => {
         try {
-            const responce = await axios.post(
+            const response = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}/api/checkout`,
                 checkoutdata,
                 {
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem(userToken)}`,
+                        Authorization: `Bearer ${localStorage.getItem("userToken")}`,
                     },
                 }
             );
-            return responce.data;
+            return response.data;
         } catch (error) {
             return rejectWithValue(error.responce.data)
         }
@@ -42,7 +42,7 @@ const checkoutSlice = createSlice({
             })
             .addCase(createCheckout.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload.meassage;
+                state.error = action.payload;
             });
 
     },

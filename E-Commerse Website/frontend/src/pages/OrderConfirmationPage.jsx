@@ -1,36 +1,10 @@
-const checkout={
-    _id:"1234",
-    createAt:new Date(),
-    checkoutIteams:[
-        {
-            productId:"1",
-            name:"Jacket",
-            color:"Black",
-            size:"M",
-            price:150,
-            quentity:1,
-            image:"https://picsum.photos/150?random=1",
-        },
-        {
-            productId:"2",
-            name:"T-Shirt",
-            color:"Black",
-            size:"M",
-            price:120,
-            quentity:2,
-            image:"https://picsum.photos/150?random=2",
-        }
-    ],
-    shppingAddress:{
-        address:"123 Fashion Street",
-        city:"New Yourk",
-        country:"USA",
-         
-    }
-
-}
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const OrderConfirmationPage = () => {
+    const dispatch= useDispatch();
+    const navigate=useNavigate();
+    const {checkout} = useSelector((state)=>state.checkout);
 
     const calculatestEstimatedDelivery=(createdAt)=>{
         const orderDate=new Date(createdAt);
