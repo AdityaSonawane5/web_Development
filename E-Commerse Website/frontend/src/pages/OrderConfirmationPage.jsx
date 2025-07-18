@@ -17,7 +17,6 @@ const OrderConfirmationPage = () => {
         }
     },[checkout,dispatch,navigate]);
 
-
     const calculatestEstimatedDelivery=(createdAt)=>{
         const orderDate=new Date(createdAt);
         orderDate.setDate(orderDate.getDate()+10); //Add 10 days to the oreder date
