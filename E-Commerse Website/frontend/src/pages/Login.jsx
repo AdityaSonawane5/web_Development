@@ -11,7 +11,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const location = useLocation();
-  const { user, guestId } = useSelector((state) => state.auth);
+  const { user, guestId ,loading} = useSelector((state) => state.auth);
   const { cart } = useSelector((state) => state.cart)
 
   // Get redireact parameter and check if it's chekout or something 
@@ -53,7 +53,7 @@ const Login = () => {
             <label className='block text-sm font-semibold mb-2'>password</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='w-full p-2 border rounded' placeholder='Enter your password' />
           </div>
-          <button type='submit' className='w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition'>Sign in</button>
+          <button type='submit' className='w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition'>{loading ? "Loading..." : "Sign in"}</button>
           <p className='mt-6 text-center text-sm'>
             Don't have an account? {""}
             <Link to={`/register?redirect=${encodeURIComponent(redirect)}`} className="text-blue-500">

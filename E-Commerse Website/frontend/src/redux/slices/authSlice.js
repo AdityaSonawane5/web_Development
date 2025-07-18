@@ -28,7 +28,7 @@ const initialState = {
 export const loginUser = createAsyncThunk("auth/loginUser", async (userData, { rejectWithValue }) => {
     try {
         const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/login`, userData);
-        localStorage.setItem("userInfo", JSON.stringify(response.data.token));
+        localStorage.setItem("userInfo", JSON.stringify(response.data.user));
         localStorage.setItem("userToken", response.data.token);
         console.log(userData)
         return response.data.user; // Return the user object from the responce
@@ -41,17 +41,17 @@ export const loginUser = createAsyncThunk("auth/loginUser", async (userData, { r
 
 
 // Async Thunk for user Register
-export const registerUser = createAsyncThunk("auth/registerUser", async (userData, { rejectWithValue  }) => {
+export const registerUser = createAsyncThunk("auth/registerUser", async (userData, { rejectWithValue }) => {
     try {
         const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, userData);
-        localStorage.setItem("userInfo", JSON.stringify(response.data.token));
+        localStorage.setItem("userInfo", JSON.stringify(response.data.user));
         localStorage.setItem("userToken", response.data.token);
         console.log(response.data.user)
         return response.data.user; // Return the user object from the responce
         // console.log(response.data.user)
 
     } catch (error) {
-        return rejectWithValue (error.response.data);
+        return rejectWithValue(error.response.data);
     }
 });
 
@@ -80,8 +80,8 @@ const authSlice = createSlice({
             state.error = null;
         })
             .addCase(loginUser.fulfilled, (state, action) => {
-                state.builder = false;
-                state.user = action.payload.message;
+                state.loading = false;
+                state.user = action.payload;
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.builder = false;

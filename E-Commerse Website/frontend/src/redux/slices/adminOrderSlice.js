@@ -10,7 +10,7 @@ export const fetchAllOrders=createAsyncThunk(
                 `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders`,
                 {
                     headers:{
-                        Authorization:`Bearer ${localStorage.getItem("useToken")}`
+                        Authorization:`Bearer ${localStorage.getItem("userToken")}`
 
                     },
                 }
@@ -55,7 +55,7 @@ export const deleteOrder=createAsyncThunk(
     "adminOrders/deleteOrder",
     async(id,{rejectWithValue})=>{
         try {
-            await axios.put(
+            await axios.delete(
                 `${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/${id}`,
                 {
                     headers:{

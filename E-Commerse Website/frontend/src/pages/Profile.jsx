@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import MyOrdersPage from './MyOrderspage'
+import MyOrdersPage from './MyOrdersPage'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { clearCart } from '../redux/slices/CartSlice';

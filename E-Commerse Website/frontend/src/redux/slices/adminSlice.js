@@ -151,7 +151,7 @@ export const updateUser = createAsyncThunk("admin/updateUser", async ({ id, name
             },
         }
     );
-    return response.data;
+    return response.data.user;
 });
 
 // Delete user

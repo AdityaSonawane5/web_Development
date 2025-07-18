@@ -60,7 +60,7 @@ const Register = () => {
             <label className='block text-sm font-semibold mb-2'>password</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='w-full p-2 border rounded' placeholder='Enter your password' />
           </div>
-          <button type='submit' className='w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition'>Sign up</button>
+          <button type='submit' className='w-full bg-black text-white p-2 rounded-lg font-semibold hover:bg-gray-800 transition'>{loading ? "Loading.." :  "Sign up" }</button>
           <p className='mt-6 text-center text-sm'>
             Don't have an account? {""}
             <Link to={`/login?redirect=${encodeURIComponent(redirect)}`} className="text-blue-500">

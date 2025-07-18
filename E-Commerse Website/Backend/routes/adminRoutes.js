@@ -51,7 +51,7 @@ router.post("/", protect, async (req, res) => {
 //@access Private/Admin 
 router.put("/:id", protect, admin, async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
+        const user = await User.findById(req.params.id).populate("user","name");
         if (user) {
             user.name = req.body.name || user.name;
             user.email = req.body.email || user.email;
