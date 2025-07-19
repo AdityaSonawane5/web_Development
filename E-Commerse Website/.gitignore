@@ -1,13 +1,15 @@
-#Logs
-Logs
-*Logs
+# Logs
+logs/
+*.log
+npm-debug.log*
 
 # Node Modules
 frontend/node_modules/
 Backend/node_modules/
 
-#Environment variables
+# Environment Variables
 frontend/.env
 Backend/.env
 
+# macOS System Files
 .DS_Store
